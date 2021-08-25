@@ -45,6 +45,18 @@ app.get('/:id', (req, res) => {
   })
 })
 
+app.patch('/:id', async (req, res) => {
+  const id = req.params.id
+  let todo = await Todo.findByIdAndUpdate(id, req.body)
+  res.json(id)
+})
+
+app.delete('/:id', async (req, res) => {
+  const id = req.params.id
+  await Todo.findByIdAndDelete(id)
+  res.end()
+})
+
 app.listen(PORT, () => {
   console.log('Server is running on port ' + PORT)
 })

@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { TodoForm } from './TodoForm'
+import { getTodoById, editTodo } from './api'
+import { useParams } from 'react-router-dom'
 
 export const EditTodo = () => {
+  const { id } = useParams()
+
   const [todo, setTodo] = useState()
 
   useEffect(() => {
+    let todoContent = getTodoById(id)
+
     setTodo({
-      text: 'foo',
+      text: todoContent.text,
     })
-  }, [])
+  }, [id])
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data))
+    editTodo(id, data)
   }
 
   return todo ? (

@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getTodos } from './api'
+import { getTodos, deleteTodo } from './api'
 
 export const TodoList = () => {
   const [items, setItems] = useState([])
+
+  const handleDelete = async (id) => {
+    await deleteTodo(id)
+
+    const fetchItems = async () => {
+      const todos = await getTodos()
+      setItems(todos)
+    }
+    fetchItems()
+  }
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -27,10 +37,13 @@ export const TodoList = () => {
           <tbody>
             {items &&
               items.map((todo) => (
-                <tr key={todo.id}>
+                <tr key={todo._id}>
                   <td>{todo.text}</td>
                   <td>
-                    <Link to={`/edit/${todo.id}`}>Edit</Link>
+                    <Link to={`/edit/${todo._id}`}>Edit</Link>
+                    <button onClick={() => handleDelete(todo._id)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
