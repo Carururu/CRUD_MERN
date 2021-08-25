@@ -9,11 +9,11 @@ export const EditTodo = () => {
   const [todo, setTodo] = useState()
 
   useEffect(() => {
-    let todoContent = getTodoById(id)
-
-    setTodo({
-      text: todoContent.text,
-    })
+    const fetchTodo = async () => {
+      const todo = await getTodoById(id)
+      setTodo(todo)
+    }
+    fetchTodo()
   }, [id])
 
   const onSubmit = (data) => {

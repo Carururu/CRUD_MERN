@@ -4,7 +4,10 @@ import { useHistory } from 'react-router-dom'
 
 export const TodoForm = ({ todo, onSubmit }) => {
   const { register, handleSubmit } = useForm({
-    defaultValues: { text: todo ? todo.text : '' },
+    defaultValues: {
+      text: todo ? todo.text : '',
+      description: todo ? todo.description : '',
+    },
   })
   const history = useHistory()
 
@@ -23,6 +26,18 @@ export const TodoForm = ({ todo, onSubmit }) => {
           type='text'
           name='text'
           id='text'
+          required
+        />
+      </div>
+      <div className='form-group'>
+        <label htmlFor='description'>Description:</label>
+        <input
+          className='form-control'
+          {...register('description')}
+          type='text'
+          name='description'
+          id='description'
+          required
         />
       </div>
       <div className='form-group'>
